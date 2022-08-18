@@ -1,0 +1,19 @@
+
+default: &default
+  adapter: postgis
+  encoding: unicode
+  username: <%= ENV.fetch("DB_USER") { 'gps_collector' } %>
+  password: <%= ENV.fetch("DB_PASS") { 'gps_collector' } %>
+  schema_search_path: public
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  port: <%= ENV.fetch("DB_PORT") { 5434 } %>
+  host: <%= ENV.fetch("DB_HOST") { 'localhost' } %>
+  
+development:
+  <<: *default
+  database: <%= ENV.fetch("DB_NAME") { 'gps_collector' } %>_development
+  
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("DB_NAME") { 'gps_collector' } %>_test
